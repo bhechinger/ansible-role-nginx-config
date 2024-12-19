@@ -277,7 +277,7 @@ proxy_temp_path {{ proxy['temp_path']['path'] -}}
 {{- ' 1 2 3' if proxy['temp_path']['level'] is defined and proxy['temp_path']['level'] is number and proxy['temp_path']['level'] == 3 }};
 {% endif %}
 {% if proxy['query_params'] is defined %}
-set $args {{ proxy['query_params'] }};
+set $args {{ proxy['query_params'] | items | map('join', '=') | join('&') }};
 {% endif %}
 
 {% endmacro %}
